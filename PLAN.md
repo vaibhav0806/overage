@@ -278,7 +278,8 @@ Report
 - [x] Core feature works end-to-end: create project → log additions → see running total → generate report
 - [x] User can sign up (email+password via Better Auth), use the product, and upgrade to Pro via DodoPayments
 - [x] Landing page explains the value in 5 seconds
-- [x] Deployed and accessible via Railway URL (overage-production.up.railway.app) — custom domain (overage.app) pending
+- [x] Deployed and accessible via Railway URL (overage-production.up.railway.app)
+- [x] Custom domain (overage.app) configured — DNS pointed via Namecheap CNAME + Railway verification
 
 ---
 
@@ -369,18 +370,21 @@ npx skills add alinaqi/claude-bootstrap@posthog-analytics -g -y
 
 - [x] Landing page live with CTA → signup flow
 - [ ] 4 screenshots: (1) project dashboard with running total, (2) logging a scope addition, (3) scope change report (PDF preview), (4) report shared link (client view)
-- [ ] 30-second demo GIF: log an addition → see total update → generate report
+- [x] 30-second demo video (Remotion, 6 scenes, lofi BGM, SFX) — `demo.mp4`. Convert to GIF for PH/directories.
 - [x] Open Graph image: "Stop doing free work for your clients." + app screenshot
 - [x] Favicon and app icon
 - [x] "Built by a freelancer" maker story (for Product Hunt and community posts) — see `maker-story.md`
+- [x] Consistent branding: "Overage" + orange dot logo across login, landing page, onboarding, sidebar
 
 ### Exit Criteria
 - [x] Landing page copy written and implemented
-- [ ] Screenshots and demo GIF created — manual task
-- [ ] Plausible/PostHog tracking live — set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` env var when domain is ready
+- [ ] Screenshots created — manual task (take from live app on overage.app)
+- [ ] Plausible/PostHog tracking live — set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=overage.app` env var on Railway
 - [x] Messaging doc complete (one-liner, paragraph, full page) — see `messaging.md`
-- [x] All 3 email sequences written — see `src/lib/emails/` (welcome, onboarding, upgrade). Loading into Resend pending.
+- [x] All 3 email sequences written — see `src/lib/emails/` (welcome, onboarding, upgrade)
+- [ ] Load email sequences into Resend (welcome, onboarding drip, upgrade nudge)
 - [x] Landing page CRO checklist passed — added mid-page CTAs, ROI callout, trust props, pricing nav link
+- [x] Demo video complete — `demo.mp4` (Remotion)
 
 ---
 

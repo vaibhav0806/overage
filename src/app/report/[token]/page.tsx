@@ -95,12 +95,12 @@ export default async function ReportPage({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#faf9f7]">
       <ReportActions token={token} />
 
-      <main className="mx-auto max-w-3xl px-6 py-16">
+      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
         <div
-          className="rounded-lg border border-gray-200 bg-white shadow-sm"
+          className="overflow-hidden rounded-xl border border-gray-200/80 bg-white shadow-md"
           style={
             report.brandingColor
               ? { borderTopWidth: 4, borderTopColor: report.brandingColor }
@@ -108,7 +108,7 @@ export default async function ReportPage({ params }: Props) {
           }
         >
           {/* Report Header */}
-          <div className="border-b border-gray-200 px-10 py-10">
+          <div className="px-8 pb-8 pt-10 sm:px-10">
             {report.brandingLogoUrl && (
               <img
                 src={report.brandingLogoUrl}
@@ -117,32 +117,32 @@ export default async function ReportPage({ params }: Props) {
                 style={{ maxWidth: 120 }}
               />
             )}
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {report.title}
             </h1>
-            <div className="mt-4 space-y-1 text-sm text-gray-600">
+            <div className="mt-5 grid grid-cols-1 gap-x-8 gap-y-2 text-sm text-gray-500 sm:grid-cols-2">
               <p>
-                Prepared for:{" "}
-                <span className="font-medium text-gray-900">
+                Prepared for{" "}
+                <span className="font-semibold text-gray-900">
                   {project.clientName}
                 </span>
               </p>
               <p>
-                Project:{" "}
-                <span className="font-medium text-gray-900">
+                Project{" "}
+                <span className="font-semibold text-gray-900">
                   {project.name}
                 </span>
               </p>
               <p>
-                Date range:{" "}
-                <span className="font-medium text-gray-900">
+                Date range{" "}
+                <span className="font-semibold text-gray-900">
                   {formatDate(report.dateRangeStart)} &mdash;{" "}
                   {formatDate(report.dateRangeEnd)}
                 </span>
               </p>
               <p>
-                Generated:{" "}
-                <span className="font-medium text-gray-900">
+                Generated{" "}
+                <span className="font-semibold text-gray-900">
                   {generatedDate}
                 </span>
               </p>
@@ -150,21 +150,25 @@ export default async function ReportPage({ params }: Props) {
           </div>
 
           {/* Summary */}
-          <div className="border-b border-gray-200 px-10 py-8">
+          <div className="border-t border-gray-100 bg-[#fdfcfb] px-8 py-8 sm:px-10">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
               Summary
             </h2>
-            <div className="mt-4 grid grid-cols-3 gap-6">
-              <div>
-                <p className="text-sm text-gray-500">Total Additions</p>
-                <p className="mt-1 text-2xl font-bold text-gray-900">
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <div className="rounded-xl border border-gray-100 bg-white px-5 py-4 shadow-sm">
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+                  Additions
+                </p>
+                <p className="mt-2 text-3xl font-bold text-gray-900">
                   {additions.length}
                 </p>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Value</p>
+              <div className="rounded-xl border border-amber-100 bg-amber-50/50 px-5 py-4 shadow-sm">
+                <p className="text-xs font-medium uppercase tracking-wide text-amber-600/80">
+                  Total Value
+                </p>
                 <p
-                  className="mt-1 text-2xl font-bold text-gray-900"
+                  className="mt-2 text-3xl font-bold text-[#f59e0b]"
                   style={
                     report.brandingColor
                       ? { color: report.brandingColor }
@@ -175,9 +179,11 @@ export default async function ReportPage({ params }: Props) {
                 </p>
               </div>
               {percentOfQuote && (
-                <div>
-                  <p className="text-sm text-gray-500">% of Original Quote</p>
-                  <p className="mt-1 text-2xl font-bold text-gray-900">
+                <div className="rounded-xl border border-gray-100 bg-white px-5 py-4 shadow-sm">
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+                    % of Original Quote
+                  </p>
+                  <p className="mt-2 text-3xl font-bold text-gray-900">
                     {percentOfQuote}%
                   </p>
                 </div>
@@ -186,114 +192,133 @@ export default async function ReportPage({ params }: Props) {
           </div>
 
           {/* Additions Table */}
-          <div className="border-b border-gray-200 px-10 py-8">
+          <div className="border-t border-gray-100 px-8 py-8 sm:px-10">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
               Scope Additions
             </h2>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="border-b border-gray-200 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                    <th className="py-3 pr-3">#</th>
-                    <th className="py-3 pr-3">Description</th>
-                    <th className="py-3 pr-3">Date</th>
-                    <th className="py-3 pr-3 text-right">Hours</th>
-                    <th className="py-3 pr-3 text-right">Rate</th>
-                    <th className="py-3 pr-3 text-right">Value</th>
-                    <th className="py-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {additions.map((addition, i) => {
-                    const value =
-                      Number(addition.estimatedHours) *
-                      Number(addition.hourlyRate);
-                    return (
-                      <tr
-                        key={addition.id}
-                        className={
-                          i % 2 === 1
-                            ? "bg-gray-50"
-                            : ""
-                        }
+            <div className="mt-5 overflow-hidden rounded-lg border border-gray-200/80">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 bg-gray-50/80 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      <th className="px-4 py-3">#</th>
+                      <th className="px-4 py-3">Description</th>
+                      <th className="px-4 py-3">Date</th>
+                      <th className="px-4 py-3 text-right">Hours</th>
+                      <th className="px-4 py-3 text-right">Rate</th>
+                      <th className="px-4 py-3 text-right">Value</th>
+                      <th className="px-4 py-3">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {additions.map((addition, i) => {
+                      const value =
+                        Number(addition.estimatedHours) *
+                        Number(addition.hourlyRate);
+                      return (
+                        <tr
+                          key={addition.id}
+                          className="transition-colors hover:bg-amber-50/30"
+                        >
+                          <td className="px-4 py-3.5 text-gray-300 font-medium">{i + 1}</td>
+                          <td className="px-4 py-3.5 font-medium text-gray-900">
+                            {addition.description}
+                          </td>
+                          <td className="px-4 py-3.5 whitespace-nowrap text-gray-500">
+                            {formatDate(addition.dateRequested)}
+                          </td>
+                          <td className="px-4 py-3.5 text-right text-gray-500">
+                            {Number(addition.estimatedHours)}
+                          </td>
+                          <td className="px-4 py-3.5 text-right text-gray-500">
+                            {formatCurrency(
+                              Number(addition.hourlyRate),
+                              project.currency,
+                            )}
+                          </td>
+                          <td className="px-4 py-3.5 text-right font-semibold text-gray-900">
+                            {formatCurrency(value, project.currency)}
+                          </td>
+                          <td className="px-4 py-3.5">
+                            <span
+                              className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColor(addition.status)}`}
+                            >
+                              {statusLabel(addition.status)}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr className="border-t-2 border-gray-200 bg-gray-50/50">
+                      <td
+                        colSpan={5}
+                        className="px-4 py-3.5 text-right text-sm font-semibold text-gray-900"
                       >
-                        <td className="py-3 pr-3 text-gray-400">{i + 1}</td>
-                        <td className="py-3 pr-3 font-medium text-gray-900">
-                          {addition.description}
-                        </td>
-                        <td className="py-3 pr-3 whitespace-nowrap text-gray-600">
-                          {formatDate(addition.dateRequested)}
-                        </td>
-                        <td className="py-3 pr-3 text-right text-gray-600">
-                          {Number(addition.estimatedHours)}
-                        </td>
-                        <td className="py-3 pr-3 text-right text-gray-600">
-                          {formatCurrency(
-                            Number(addition.hourlyRate),
-                            project.currency,
-                          )}
-                        </td>
-                        <td className="py-3 pr-3 text-right font-medium text-gray-900">
-                          {formatCurrency(value, project.currency)}
-                        </td>
-                        <td className="py-3">
-                          <span
-                            className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${statusColor(addition.status)}`}
-                          >
-                            {statusLabel(addition.status)}
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr className="border-t border-gray-300">
-                    <td
-                      colSpan={5}
-                      className="py-3 pr-3 text-right text-sm font-semibold text-gray-900"
-                    >
-                      Total
-                    </td>
-                    <td className="py-3 pr-3 text-right text-sm font-bold text-gray-900">
-                      {formatCurrency(totalValue, project.currency)}
-                    </td>
-                    <td />
-                  </tr>
-                </tfoot>
-              </table>
+                        Total
+                      </td>
+                      <td className="px-4 py-3.5 text-right text-sm font-bold text-gray-900">
+                        {formatCurrency(totalValue, project.currency)}
+                      </td>
+                      <td />
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
 
           {/* Freelancer Note */}
           {report.freelancerNote && (
-            <div className="border-b border-gray-200 px-10 py-8">
+            <div className="border-t border-gray-100 px-8 py-8 sm:px-10">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                 Note
               </h2>
-              <blockquote className="mt-4 border-l-4 border-gray-300 pl-4 text-sm leading-relaxed text-gray-700 italic">
+              <blockquote className="mt-4 rounded-lg border-l-4 border-[#f59e0b]/40 bg-amber-50/40 py-3 pl-5 pr-4 text-sm leading-relaxed text-gray-700 italic">
                 {report.freelancerNote}
               </blockquote>
+            </div>
+          )}
+
+          {/* CTA Banner */}
+          {report.showPoweredBy && (
+            <div className="mx-8 mb-8 mt-2 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 px-8 py-8 text-center sm:mx-10">
+              <p className="text-lg font-semibold text-white">
+                Are you a freelancer losing money to scope creep?
+              </p>
+              <p className="mx-auto mt-2 max-w-md text-sm text-gray-400">
+                Track every out-of-scope request, calculate the cost, and send professional
+                reports like this one to your clients.
+              </p>
+              <a
+                href="https://overage.app?ref=report-cta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block rounded-lg bg-[#f59e0b] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#d97706]"
+              >
+                Try Overage for free
+              </a>
             </div>
           )}
 
           {/* Footer */}
           {report.showPoweredBy && (
             <div className="border-t border-gray-100 px-10 py-6 text-center">
-              <p className="text-xs text-gray-400">
-                This report was generated with{" "}
-                <a
-                  href="https://overage.app?ref=report"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-gray-500 underline hover:text-gray-700"
-                >
-                  Overage
-                </a>
-              </p>
-              <p className="mt-1 text-[11px] text-gray-300">
-                Stop doing free work for your clients
-              </p>
+              <a
+                href="https://overage.app?ref=report"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex flex-col items-center gap-1.5"
+              >
+                <span className="flex items-center gap-1.5 text-sm font-bold text-gray-400 transition-colors group-hover:text-gray-600">
+                  Powered by Overage
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#f59e0b]" />
+                </span>
+                <span className="text-xs text-gray-300 transition-colors group-hover:text-gray-400">
+                  Track scope creep. Bill with confidence.
+                </span>
+              </a>
             </div>
           )}
         </div>

@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 1,
     color: "#999999",
+    paddingRight: 8,
   },
   tableRow: {
     flexDirection: "row",
@@ -92,10 +93,12 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     fontSize: 10,
+    paddingRight: 8,
   },
   tableCellBold: {
     fontSize: 10,
     fontFamily: "Helvetica-Bold",
+    paddingRight: 8,
   },
   totalRow: {
     flexDirection: "row",
@@ -104,13 +107,13 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     marginTop: 4,
   },
-  colNum: { width: 25 },
-  colDesc: { width: 170 },
-  colDate: { width: 80 },
-  colHours: { width: 45, textAlign: "right" },
-  colRate: { width: 60, textAlign: "right" },
-  colValue: { width: 70, textAlign: "right" },
-  colStatus: { width: 55 },
+  colNum: { width: 22 },
+  colDesc: { width: 175 },
+  colDate: { width: 72 },
+  colHours: { width: 40, textAlign: "right" },
+  colRate: { width: 55, textAlign: "right" },
+  colValue: { width: 65, textAlign: "right" },
+  colStatus: { width: 60 },
   noteBlock: {
     marginTop: 28,
     paddingLeft: 12,
@@ -128,9 +131,7 @@ const styles = StyleSheet.create({
     bottom: 36,
     left: 48,
     right: 48,
-    textAlign: "center",
-    fontSize: 9,
-    color: "#aaaaaa",
+    alignItems: "center",
   },
 });
 
@@ -159,6 +160,16 @@ function statusLabel(status: string) {
   return labels[status] ?? status;
 }
 
+function statusColor(status: string) {
+  const colors: Record<string, string> = {
+    approved: "#16a34a",
+    rejected: "#dc2626",
+    pending: "#d97706",
+    absorbed: "#6b7280",
+  };
+  return colors[status] ?? "#1a1a1a";
+}
+
 type ReportData = NonNullable<Awaited<ReturnType<typeof getReportByToken>>>;
 
 function ReportPDF({ report, project, additions }: ReportData) {
@@ -182,6 +193,18 @@ function ReportPDF({ report, project, additions }: ReportData) {
     createElement(
       Page,
       { size: "A4", style: styles.page },
+
+      // Accent bar
+      createElement(View, {
+        style: {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 4,
+          backgroundColor: report.brandingColor || "#f59e0b",
+        },
+      }),
 
       // Logo
       ...(report.brandingLogoUrl
@@ -240,49 +263,59 @@ function ReportPDF({ report, project, additions }: ReportData) {
       createElement(Text, { style: styles.sectionTitle }, "Summary"),
       createElement(
         View,
-        { style: styles.summaryRow },
+        {
+          style: {
+            backgroundColor: "#faf9f7",
+            padding: 16,
+            borderRadius: 6,
+          },
+        },
         createElement(
           View,
-          { style: styles.summaryItem },
-          createElement(Text, { style: styles.summaryLabel }, "Total Additions"),
+          { style: styles.summaryRow },
           createElement(
-            Text,
-            { style: styles.summaryValue },
-            String(additions.length),
+            View,
+            { style: styles.summaryItem },
+            createElement(Text, { style: styles.summaryLabel }, "Total Additions"),
+            createElement(
+              Text,
+              { style: styles.summaryValue },
+              String(additions.length),
+            ),
           ),
-        ),
-        createElement(
-          View,
-          { style: styles.summaryItem },
-          createElement(Text, { style: styles.summaryLabel }, "Total Value"),
           createElement(
-            Text,
-            {
-              style: report.brandingColor
-                ? { ...styles.summaryValue, color: report.brandingColor }
-                : styles.summaryValue,
-            },
-            formatCurrency(totalValue, project.currency),
+            View,
+            { style: styles.summaryItem },
+            createElement(Text, { style: styles.summaryLabel }, "Total Value"),
+            createElement(
+              Text,
+              {
+                style: report.brandingColor
+                  ? { ...styles.summaryValue, color: report.brandingColor }
+                  : styles.summaryValue,
+              },
+              formatCurrency(totalValue, project.currency),
+            ),
           ),
+          ...(percentOfQuote
+            ? [
+                createElement(
+                  View,
+                  { style: styles.summaryItem, key: "pct" },
+                  createElement(
+                    Text,
+                    { style: styles.summaryLabel },
+                    "% of Original Quote",
+                  ),
+                  createElement(
+                    Text,
+                    { style: styles.summaryValue },
+                    `${percentOfQuote}%`,
+                  ),
+                ),
+              ]
+            : []),
         ),
-        ...(percentOfQuote
-          ? [
-              createElement(
-                View,
-                { style: styles.summaryItem, key: "pct" },
-                createElement(
-                  Text,
-                  { style: styles.summaryLabel },
-                  "% of Original Quote",
-                ),
-                createElement(
-                  Text,
-                  { style: styles.summaryValue },
-                  `${percentOfQuote}%`,
-                ),
-              ),
-            ]
-          : []),
       ),
 
       // Table
@@ -372,7 +405,13 @@ function ReportPDF({ report, project, additions }: ReportData) {
           ),
           createElement(
             Text,
-            { style: { ...styles.tableCell, ...styles.colStatus } },
+            {
+              style: {
+                ...styles.tableCell,
+                ...styles.colStatus,
+                color: statusColor(addition.status),
+              },
+            },
             statusLabel(addition.status),
           ),
         );
@@ -439,9 +478,25 @@ function ReportPDF({ report, project, additions }: ReportData) {
       ...(report.showPoweredBy
         ? [
             createElement(
-              Text,
+              View,
               { style: styles.footer, key: "footer" },
-              "Generated with Overage — overage.app",
+              createElement(
+                Text,
+                {
+                  style: {
+                    fontSize: 10,
+                    fontFamily: "Helvetica-Bold",
+                    color: "#666666",
+                    marginBottom: 2,
+                  },
+                },
+                "overage.app",
+              ),
+              createElement(
+                Text,
+                { style: { fontSize: 8, color: "#aaaaaa" } },
+                "Track scope creep. Bill with confidence.",
+              ),
             ),
           ]
         : []),
