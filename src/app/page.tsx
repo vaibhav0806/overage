@@ -18,8 +18,9 @@ export default async function LandingPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 border-b border-gray-200/60 bg-cream/80 backdrop-blur-lg">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            overage
+          <span className="flex items-center gap-1.5 text-lg font-bold tracking-tight text-foreground">
+            Overage
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
           <div className="flex items-center gap-6">
             <Link
@@ -447,8 +448,9 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-start">
             <div>
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                overage
+              <span className="flex items-center gap-1.5 text-lg font-bold tracking-tight text-foreground">
+                Overage
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
               </span>
               <p className="mt-1.5 text-sm text-gray-400">
                 Stop doing free work.

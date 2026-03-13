@@ -31,7 +31,10 @@ export default async function OnboardingPage() {
 
   return (
     <div className="mx-auto max-w-xl py-12">
-      <h1 className="text-2xl font-bold text-gray-900">Welcome to Overage</h1>
+      <h1 className="flex items-center gap-1.5 text-2xl font-bold text-gray-900">
+        Welcome to Overage
+        <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+      </h1>
       <p className="mt-2 text-sm text-gray-600">
         Two quick steps and you&apos;ll be tracking every dollar of scope creep.
       </p>

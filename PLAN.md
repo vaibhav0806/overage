@@ -278,7 +278,7 @@ Report
 - [x] Core feature works end-to-end: create project → log additions → see running total → generate report
 - [x] User can sign up (email+password via Better Auth), use the product, and upgrade to Pro via DodoPayments
 - [x] Landing page explains the value in 5 seconds
-- [ ] Deployed and accessible via a real URL (overage.app) — code ready, manual deploy to Railway remaining
+- [x] Deployed and accessible via Railway URL (overage-production.up.railway.app) — custom domain (overage.app) pending
 
 ---
 
@@ -367,20 +367,20 @@ npx skills add alinaqi/claude-bootstrap@posthog-analytics -g -y
 
 #### 5. Launch Assets Checklist
 
-- [ ] Landing page live with CTA → signup flow
+- [x] Landing page live with CTA → signup flow
 - [ ] 4 screenshots: (1) project dashboard with running total, (2) logging a scope addition, (3) scope change report (PDF preview), (4) report shared link (client view)
 - [ ] 30-second demo GIF: log an addition → see total update → generate report
-- [ ] Open Graph image: "Stop doing free work for your clients." + app screenshot
-- [ ] Favicon and app icon
-- [ ] "Built by a freelancer" maker story (for Product Hunt and community posts)
+- [x] Open Graph image: "Stop doing free work for your clients." + app screenshot
+- [x] Favicon and app icon
+- [x] "Built by a freelancer" maker story (for Product Hunt and community posts) — see `maker-story.md`
 
 ### Exit Criteria
-- [ ] Landing page copy written and implemented
-- [ ] Screenshots and demo GIF created
-- [ ] Plausible/PostHog tracking live
-- [ ] Messaging doc complete (one-liner, paragraph, full page)
-- [ ] All 3 email sequences written and loaded in Resend/Loops
-- [ ] Landing page CRO checklist passed (clear headline, single CTA, fast load, mobile responsive)
+- [x] Landing page copy written and implemented
+- [ ] Screenshots and demo GIF created — manual task
+- [ ] Plausible/PostHog tracking live — set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` env var when domain is ready
+- [x] Messaging doc complete (one-liner, paragraph, full page) — see `messaging.md`
+- [x] All 3 email sequences written — see `src/lib/emails/` (welcome, onboarding, upgrade). Loading into Resend pending.
+- [x] Landing page CRO checklist passed — added mid-page CTAs, ROI callout, trust props, pricing nav link
 
 ---
 

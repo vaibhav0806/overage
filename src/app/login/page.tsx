@@ -49,7 +49,10 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-cream">
       <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-8">
-        <h1 className="text-2xl font-bold text-gray-900">Overage</h1>
+        <h1 className="flex items-center gap-1.5 text-2xl font-bold text-gray-900">
+          Overage
+          <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+        </h1>
         <p className="mt-1 text-sm text-gray-600">
           {mode === "sign-in" ? "Sign in to your account" : "Create an account"}
         </p>
