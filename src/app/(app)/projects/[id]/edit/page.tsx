@@ -42,7 +42,7 @@ export default async function EditProjectPage({
             type="text"
             required
             defaultValue={project.name}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -59,7 +59,7 @@ export default async function EditProjectPage({
             type="text"
             required
             defaultValue={project.clientName}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -75,7 +75,7 @@ export default async function EditProjectPage({
             name="clientEmail"
             type="email"
             defaultValue={project.clientEmail ?? ""}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -94,7 +94,7 @@ export default async function EditProjectPage({
             step="0.01"
             min="0"
             defaultValue={project.originalQuote}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -113,7 +113,7 @@ export default async function EditProjectPage({
             step="0.01"
             min="0"
             defaultValue={project.hourlyRate}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -128,7 +128,7 @@ export default async function EditProjectPage({
             id="currency"
             name="currency"
             defaultValue={project.currency}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           >
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
@@ -152,14 +152,14 @@ export default async function EditProjectPage({
             required
             rows={6}
             defaultValue={project.originalScope}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
         <div className="flex items-center gap-3 pt-2">
           <button
             type="submit"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
           >
             Save Changes
           </button>

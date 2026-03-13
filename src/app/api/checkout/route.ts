@@ -20,7 +20,6 @@ export async function POST() {
     customer: {
       email: session.user.email,
       name: session.user.name,
-      customer_id: session.user.id,
     },
     metadata: {
       user_id: session.user.id,

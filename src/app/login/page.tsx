@@ -47,7 +47,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-cream">
       <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-8">
         <h1 className="text-2xl font-bold text-gray-900">Overage</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                 placeholder="Your name"
               />
             </>
@@ -87,7 +87,7 @@ export default function LoginPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             placeholder="you@example.com"
           />
 
@@ -103,7 +103,7 @@ export default function LoginPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             placeholder="••••••••"
           />
 
@@ -114,7 +114,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-4 w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+            className="mt-4 w-full rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
           >
             {loading
               ? mode === "sign-in"
@@ -136,7 +136,7 @@ export default function LoginPage() {
                   setMode("sign-up");
                   setError(null);
                 }}
-                className="font-medium text-primary hover:text-blue-700"
+                className="font-medium text-accent hover:text-amber-700"
               >
                 Sign up
               </button>
@@ -150,7 +150,7 @@ export default function LoginPage() {
                   setMode("sign-in");
                   setError(null);
                 }}
-                className="font-medium text-primary hover:text-blue-700"
+                className="font-medium text-accent hover:text-amber-700"
               >
                 Sign in
               </button>

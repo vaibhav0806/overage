@@ -75,7 +75,7 @@ export function GenerateReportForm({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-3 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        className="mt-3 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
       >
         Generate Report
       </button>
@@ -103,7 +103,7 @@ export function GenerateReportForm({
             type="text"
             required
             defaultValue={defaultTitle}
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -121,7 +121,7 @@ export function GenerateReportForm({
               type="date"
               required
               defaultValue={earliestDate}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
           </div>
 
@@ -138,7 +138,7 @@ export function GenerateReportForm({
               type="date"
               required
               defaultValue={today}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
           </div>
         </div>
@@ -151,14 +151,14 @@ export function GenerateReportForm({
             <button
               type="button"
               onClick={() => setSelected(new Set(additions.map((a) => a.id)))}
-              className="text-xs font-medium text-primary hover:text-blue-700"
+              className="text-xs font-medium text-accent hover:text-amber-700"
             >
               Select All
             </button>
             <button
               type="button"
               onClick={() => setSelected(new Set())}
-              className="text-xs font-medium text-primary hover:text-blue-700"
+              className="text-xs font-medium text-accent hover:text-amber-700"
             >
               Deselect All
             </button>
@@ -178,7 +178,7 @@ export function GenerateReportForm({
                     value={addition.id}
                     checked={selected.has(addition.id)}
                     onChange={() => toggleAddition(addition.id)}
-                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    className="h-4 w-4 rounded border-gray-300 text-accent focus:ring-accent"
                   />
                   <span className="flex-1 text-sm text-gray-900">
                     {addition.description}
@@ -216,7 +216,7 @@ export function GenerateReportForm({
             name="freelancerNote"
             rows={3}
             placeholder="Optional message to your client..."
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
       </div>
@@ -224,7 +224,7 @@ export function GenerateReportForm({
       <div className="mt-4 flex items-center gap-3">
         <button
           type="submit"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
         >
           Generate Report
         </button>

@@ -27,7 +27,7 @@ export function ScopeCounter() {
 
   useEffect(() => {
     if (visibleCount >= additions.length) return;
-    const delay = visibleCount === 0 ? 800 : 1600 + Math.random() * 1200;
+    const delay = visibleCount === 0 ? 800 : 1400 + Math.random() * 1000;
     const timer = setTimeout(() => setVisibleCount((c) => c + 1), delay);
     return () => clearTimeout(timer);
   }, [visibleCount]);
@@ -37,47 +37,49 @@ export function ScopeCounter() {
 
   return (
     <div className="relative mx-auto w-full max-w-lg">
-      <div className="rounded-xl border border-gray-200 bg-white shadow-2xl shadow-gray-200/60">
+      <div className="rounded-2xl border border-gray-200/80 bg-white shadow-2xl shadow-gray-300/40 ring-1 ring-gray-100">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 px-5 py-3">
-          <div className="flex items-center gap-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-accent" />
-            <span className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-3.5">
+          <div className="flex items-center gap-2.5">
+            <div className="h-2.5 w-2.5 rounded-full bg-accent shadow-sm shadow-amber-400/40" />
+            <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">
               Acme Corp Redesign
             </span>
           </div>
-          <span className="text-xs text-gray-400">Original quote: $8,000</span>
+          <span className="text-xs tabular-nums text-gray-400">
+            Original quote: $8,000
+          </span>
         </div>
 
         {/* Additions list */}
-        <div className="px-5 py-3 space-y-0">
+        <div className="space-y-0 px-6 py-3">
           {visible.map((a, i) => (
             <div
               key={i}
-              className="flex items-baseline justify-between py-1.5 animate-[fadeSlideIn_0.35s_ease-out]"
+              className="flex items-baseline justify-between border-b border-gray-50 py-2 last:border-b-0 animate-[fadeSlideIn_0.3s_ease-out]"
             >
-              <span className="text-sm text-gray-600 truncate max-w-[260px]">
+              <span className="max-w-[260px] truncate text-sm text-gray-600">
                 {a.desc}
               </span>
-              <span className="ml-3 text-sm font-medium tabular-nums text-gray-900 whitespace-nowrap">
+              <span className="ml-3 whitespace-nowrap text-sm font-semibold tabular-nums text-gray-900">
                 +{formatUSD(a.hours * a.rate)}
               </span>
             </div>
           ))}
           {visibleCount === 0 && (
-            <div className="py-6 text-center text-sm text-gray-300 italic">
+            <div className="py-8 text-center text-sm italic text-gray-300">
               Waiting for scope additions...
             </div>
           )}
         </div>
 
         {/* Running total */}
-        <div className="border-t border-gray-100 px-5 py-4 flex items-baseline justify-between">
-          <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
+        <div className="flex items-baseline justify-between border-t border-gray-200/80 bg-gray-50/50 px-6 py-5">
+          <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">
             Scope additions total
           </span>
           <span
-            className={`text-2xl font-bold tabular-nums transition-colors duration-500 ${
+            className={`font-serif text-3xl font-bold tabular-nums transition-all duration-500 ${
               total > 2000 ? "text-accent" : "text-gray-900"
             }`}
           >
@@ -86,8 +88,8 @@ export function ScopeCounter() {
         </div>
 
         {total > 0 && (
-          <div className="border-t border-gray-100 px-5 py-3 bg-amber-50/60">
-            <p className="text-xs text-amber-800">
+          <div className="rounded-b-2xl border-t border-amber-200/60 bg-gradient-to-r from-amber-50/80 to-amber-50/40 px-6 py-3.5">
+            <p className="text-xs font-medium text-amber-800">
               That&apos;s{" "}
               <span className="font-bold">
                 {((total / 8000) * 100).toFixed(0)}%

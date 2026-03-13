@@ -31,7 +31,7 @@ function formatDate(date: string | Date) {
 
 const statusStyles: Record<string, string> = {
   active: "bg-green-50 text-green-700",
-  completed: "bg-blue-50 text-blue-700",
+  completed: "bg-amber-50 text-amber-700",
   archived: "bg-gray-100 text-gray-600",
 };
 
@@ -70,11 +70,11 @@ export default async function ProjectDetailPage({
     originalQuote > 0 ? ((totalValue / originalQuote) * 100).toFixed(1) : "0";
 
   return (
-    <div>
+    <div className="animate-[slideUp_0.4s_ease-out]">
       {/* Project header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{project.name}</h1>
+          <h1 className="text-2xl font-bold text-foreground">{project.name}</h1>
           <p className="mt-1 text-sm text-gray-500">{project.clientName}</p>
         </div>
         <div className="flex items-center gap-3">
@@ -94,14 +94,14 @@ export default async function ProjectDetailPage({
       </div>
 
       {/* Running total — hero section */}
-      <div className="mt-6 rounded-lg bg-primary p-6 text-white">
-        <p className="text-sm font-medium text-blue-100">
+      <div className="mt-6 rounded-xl bg-foreground p-6 text-white">
+        <p className="text-sm font-medium text-zinc-400">
           Total Scope Additions
         </p>
-        <p className="mt-2 text-4xl font-bold">
+        <p className="mt-2 font-serif text-4xl font-bold">
           {formatCurrency(totalValue, project.currency)}
         </p>
-        <div className="mt-3 flex items-center gap-6 text-sm text-blue-100">
+        <div className="mt-3 flex items-center gap-6 text-sm text-zinc-400">
           <span>
             {additions.length} addition{additions.length !== 1 ? "s" : ""}
           </span>
@@ -116,7 +116,7 @@ export default async function ProjectDetailPage({
       {/* Scope additions section */}
       <div className="mt-8">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-foreground">
             Scope Additions{" "}
             <span className="text-sm font-normal text-gray-500">
               ({additions.length})
@@ -131,17 +131,17 @@ export default async function ProjectDetailPage({
         />
 
         {additions.length === 0 ? (
-          <div className="mt-6 rounded-lg border border-gray-200 bg-white p-8 text-center shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900">No scope additions yet</h3>
+          <div className="mt-6 rounded-xl border border-gray-200 bg-surface p-8 text-center shadow-sm">
+            <h3 className="text-lg font-semibold text-foreground">No scope additions yet</h3>
             <p className="mt-2 text-sm text-gray-500">
               When your client asks for something outside the original agreement, log it here.
               Each addition tracks the hours and dollar impact automatically.
             </p>
           </div>
         ) : (
-          <div className="mt-4 overflow-hidden rounded-lg border border-gray-200">
+          <div className="mt-4 overflow-hidden rounded-xl border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-muted">
                 <tr>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">
                     Description
@@ -163,7 +163,7 @@ export default async function ProjectDetailPage({
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-200 bg-surface">
                 {additions.map((addition) => {
                   const value =
                     Number(addition.estimatedHours) *
@@ -172,7 +172,7 @@ export default async function ProjectDetailPage({
                   return (
                     <tr key={addition.id}>
                       <td className="px-4 py-3">
-                        <p className="text-sm font-medium text-gray-900">
+                        <p className="text-sm font-medium text-foreground">
                           {addition.description}
                         </p>
                         {addition.notes && (
@@ -184,7 +184,7 @@ export default async function ProjectDetailPage({
                       <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
                         {formatDate(addition.dateRequested)}
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-right text-sm text-gray-900">
+                      <td className="whitespace-nowrap px-4 py-3 text-right text-sm text-foreground">
                         <span className="font-medium">
                           {formatCurrency(value, project.currency)}
                         </span>
@@ -221,7 +221,7 @@ export default async function ProjectDetailPage({
       {/* Generate report */}
       {additions.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-foreground">
             Scope Change Reports
           </h2>
           <GenerateReportForm
@@ -242,7 +242,7 @@ export default async function ProjectDetailPage({
       {/* Existing reports */}
       {existingReports.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-foreground">
             Reports{" "}
             <span className="text-sm font-normal text-gray-500">
               ({existingReports.length})
@@ -252,11 +252,11 @@ export default async function ProjectDetailPage({
             {existingReports.map((report) => (
               <div
                 key={report.id}
-                className="rounded-lg border border-gray-200 bg-white p-4"
+                className="rounded-xl border border-gray-200 bg-surface p-4"
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900">
+                    <h3 className="text-sm font-medium text-foreground">
                       {report.title}
                     </h3>
                     <p className="mt-1 text-xs text-gray-500">
@@ -277,7 +277,7 @@ export default async function ProjectDetailPage({
                       href={`/report/${report.shareToken}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm font-medium text-primary hover:text-blue-700"
+                      className="text-sm font-medium text-accent hover:text-amber-700"
                     >
                       View Report
                     </a>
@@ -291,8 +291,8 @@ export default async function ProjectDetailPage({
       )}
 
       {/* Project details */}
-      <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-gray-900">
+      <div className="mt-8 rounded-xl border border-gray-200 bg-surface p-6">
+        <h2 className="text-lg font-semibold text-foreground">
           Project Details
         </h2>
         <dl className="mt-4 grid grid-cols-3 gap-6">
@@ -300,7 +300,7 @@ export default async function ProjectDetailPage({
             <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">
               Original Quote
             </dt>
-            <dd className="mt-1 text-sm text-gray-900">
+            <dd className="mt-1 text-sm text-foreground">
               {formatCurrency(originalQuote, project.currency)}
             </dd>
           </div>
@@ -308,7 +308,7 @@ export default async function ProjectDetailPage({
             <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">
               Hourly Rate
             </dt>
-            <dd className="mt-1 text-sm text-gray-900">
+            <dd className="mt-1 text-sm text-foreground">
               {formatCurrency(Number(project.hourlyRate), project.currency)}/hr
             </dd>
           </div>
@@ -316,7 +316,7 @@ export default async function ProjectDetailPage({
             <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">
               Currency
             </dt>
-            <dd className="mt-1 text-sm text-gray-900">{project.currency}</dd>
+            <dd className="mt-1 text-sm text-foreground">{project.currency}</dd>
           </div>
         </dl>
         {project.originalScope && (

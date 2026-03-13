@@ -121,7 +121,7 @@ export function BrandingForm({
             value={accentColor}
             onChange={(e) => handleColorChange(e.target.value)}
             maxLength={7}
-            className="w-28 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-28 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
           {accentColor !== DEFAULT_ACCENT && (
             <button
@@ -168,7 +168,7 @@ export function BrandingForm({
       <div className="flex items-center gap-3">
         <button
           type="submit"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
         >
           Save Branding
         </button>

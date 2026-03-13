@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const inputClass =
-  "mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  "mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
 
 export default async function NewProjectPage() {
   const session = await auth.api.getSession({
@@ -202,7 +202,7 @@ export default async function NewProjectPage() {
         <div className="flex items-center gap-3 pt-2">
           <button
             type="submit"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
           >
             Create Project
           </button>

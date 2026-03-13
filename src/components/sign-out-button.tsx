@@ -9,7 +9,7 @@ export function SignOutButton() {
         await authClient.signOut();
         window.location.href = "/login";
       }}
-      className="mt-2 text-sm font-medium text-gray-500 hover:text-gray-700"
+      className="mt-2 text-sm font-medium text-zinc-500 hover:text-white"
     >
       Sign out
     </button>
