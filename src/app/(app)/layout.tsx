@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
 import { SignOutButton } from "@/components/sign-out-button";
+import { UpgradeButton } from "@/components/upgrade-button";
 
 export default async function AppLayout({
   children,
@@ -16,6 +20,11 @@ export default async function AppLayout({
   if (!session) {
     redirect("/login");
   }
+
+  const [profile] = await db
+    .select({ plan: users.plan })
+    .from(users)
+    .where(eq(users.id, session.user.id));
 
   return (
     <div className="flex min-h-screen">
@@ -36,8 +45,19 @@ export default async function AppLayout({
           >
             Projects
           </Link>
+          <Link
+            href="/settings/branding"
+            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Settings
+          </Link>
         </nav>
         <div className="border-t border-gray-200 px-6 py-4">
+          {profile?.plan === "free" && (
+            <div className="mb-3">
+              <UpgradeButton />
+            </div>
+          )}
           <p className="truncate text-sm text-gray-600">{session.user.email}</p>
           <SignOutButton />
         </div>

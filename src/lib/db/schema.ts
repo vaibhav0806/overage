@@ -23,6 +23,8 @@ export const users = pgTable("users", {
     precision: 10,
     scale: 2,
   }),
+  brandingLogoUrl: text("branding_logo_url"),
+  brandingAccentColor: text("branding_accent_color"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

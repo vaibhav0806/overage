@@ -43,7 +43,7 @@ export default function LoginPage() {
       }
     }
 
-    window.location.href = "/dashboard";
+    window.location.href = mode === "sign-up" ? "/onboarding" : "/dashboard";
   }
 
   return (

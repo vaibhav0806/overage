@@ -175,27 +175,41 @@ Everything in the MVP exists to get the user to that moment as fast as possible.
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| **Framework** | Next.js 14+ (App Router) | Full-stack in one repo. SSR for landing page SEO. API routes for backend. |
-| **Database** | Supabase (Postgres + Auth) | Magic link auth built in. Row-level security. Generous free tier. Real-time if needed later. |
-| **Hosting** | Vercel | Zero-config Next.js deploys. Free tier covers early traffic. |
-| **Payments** | Stripe Checkout + Billing Portal | Industry standard. Handles subscription lifecycle. Webhook for provisioning. |
+| **Framework** | Next.js 16 (App Router) | Full-stack in one repo. SSR for landing page SEO. API routes for backend. |
+| **Database** | NeonDB (Postgres) | Serverless Postgres. Generous free tier. Branches for preview envs later. |
+| **ORM** | Drizzle | TypeScript-native, first-class Neon support, schema-as-code with migrations. |
+| **Auth** | Better Auth (self-hosted) | Open source, runs in our app. Email+password. No external service needed. |
+| **Hosting** | Railway | Simple deploys, good DX, supports Next.js natively. |
+| **Payments** | DodoPayments | Checkout for $8/mo. Webhook to update user plan. Billing portal for cancellation. |
 | **PDF generation** | `@react-pdf/renderer` or Puppeteer (headless Chrome) | `@react-pdf/renderer` for simple layouts; Puppeteer if you want the report to match the web preview exactly. |
 | **Shareable report links** | Public Next.js route `/report/[id]` with unique token | No auth required for viewing. The report is a public page with an unguessable URL. |
-| **Styling** | Tailwind CSS | Fast to build, consistent, no design system needed. |
-| **Email (transactional)** | Resend | Magic link emails, welcome email. Simple API, good DX. |
+| **Styling** | Tailwind CSS v4 | Fast to build, consistent, no design system needed. |
+| **Email (transactional)** | Resend | Welcome email, transactional emails. Simple API, good DX. |
 | **Analytics** | Plausible or PostHog (Cloud) | Don't build your own. Drop in a script tag. |
 
 ### Data Model
 
 ```
-User
-├── id (uuid)
-├── email
-├── name
-├── plan (free | pro)
-├── stripe_customer_id
-├── default_hourly_rate (decimal)
-├── created_at
+User (managed by Better Auth — "users" table)
+├── id (text, primary key — Better Auth generates this)
+├── email (text, unique)
+├── email_verified (boolean)
+├── name (text)
+├── image (text, nullable)
+├── plan (text: free | pro)
+├── stripe_customer_id (text, nullable)
+├── default_hourly_rate (numeric, nullable)
+├── created_at (timestamptz)
+├── updated_at (timestamptz)
+
+Session (Better Auth — "sessions" table)
+├── id, token, expires_at, user_id, ip_address, user_agent, created_at, updated_at
+
+Account (Better Auth — "accounts" table)
+├── id, account_id, provider_id, user_id, access_token, refresh_token, password, etc.
+
+Verification (Better Auth — "verifications" table)
+├── id, identifier, value, expires_at, created_at, updated_at
 
 Project
 ├── id (uuid)
@@ -217,7 +231,7 @@ ScopeAddition
 ├── date_requested (date)
 ├── estimated_hours (decimal)
 ├── hourly_rate (decimal — inherited from project, overridable)
-├── dollar_value (computed: estimated_hours × hourly_rate)
+├── (dollar_value is computed client-side: estimated_hours × hourly_rate — not stored)
 ├── status (pending | approved | rejected | absorbed)
 ├── client_requested (boolean — was this requested by client or discovered by freelancer?)
 ├── notes (text, optional — "Client asked via Slack on 3/5")
@@ -244,27 +258,27 @@ Report
 
 | Day | What to build |
 |-----|--------------|
-| **Day 1** | Project setup: Next.js + Supabase + Tailwind. DB schema + migrations. Supabase auth (magic link). Basic layout shell with nav. |
-| **Day 2** | Project CRUD: Create project form (name, client, quote, scope summary, hourly rate). Project list view. Project detail page (empty state). |
-| **Day 3** | Scope addition CRUD: "Log Addition" form on project detail page (description, date, hours, rate, status). Addition list on project detail. Running total calculation displayed prominently. |
-| **Day 4** | Report generation: "Generate Report" flow — select date range, pick which additions to include, add freelancer note. Render report as a styled page at `/report/[token]`. PDF download using `@react-pdf/renderer`. |
-| **Day 5** | Polish the core loop. Test the full flow: create project → log 5 additions → generate report → view shareable link → download PDF. Fix bugs. Make it feel solid. |
+| **Day 1** ✅ | Project setup: Next.js 16 + NeonDB + Drizzle + Tailwind v4. DB schema. Better Auth (email+password). Basic layout shell with nav. |
+| **Day 2** ✅ | Project CRUD: Create project form (name, client, quote, scope summary, hourly rate). Project list view. Project detail page (empty state). Dashboard with stats. |
+| **Day 3** ✅ | Scope addition CRUD: "Log Addition" form on project detail page (description, date, hours, rate, status). Addition list on project detail. Running total calculation displayed prominently. |
+| **Day 4** ✅ | Report generation: "Generate Report" flow — select date range, pick additions, add note. Public report page at `/report/[token]`. PDF download via `@react-pdf/renderer`. Reports section on project detail. |
+| **Day 5** ✅ | Polish: Real scope addition totals on dashboard. Select All/Deselect All on report form. Date handling fixes. Full flow works: create project → log additions → generate report → view/share link → download PDF. |
 
 **Week 2: Monetization + Landing Page (Days 6–10)**
 
 | Day | What to build |
 |-----|--------------|
-| **Day 6** | Landing page at `/`. Headline, subhead, CTA, feature blocks, pricing section, footer. Use the copy from Phase 4. |
-| **Day 7** | Stripe integration: Checkout session for $8/mo. Webhook to update user plan. Billing portal link for cancellation. Gate project creation (free tier: 1 active project). |
-| **Day 8** | Report branding: Pro users can upload logo + pick accent color for reports. Free-tier reports show "Powered by Scope Creep" footer with link. |
-| **Day 9** | Onboarding: After signup, 2-step flow — (1) set your default hourly rate, (2) create your first project. Empty states with clear CTAs everywhere. |
-| **Day 10** | Deploy to production. Custom domain. OG images. Final QA pass. Plausible/PostHog script added. Resend configured for transactional emails. |
+| **Day 6** ✅ | Landing page at `/`. Hero with animated scope counter, feature blocks, before/after story, objection handler, pricing cards, final CTA. Instrument Serif display font. Editorial design. |
+| **Day 7** ✅ | DodoPayments integration: Checkout session for $8/mo. Webhook to update user plan. Billing portal link for cancellation. Gate project creation (free tier: 1 active project). |
+| **Day 8** ✅ | Report branding: Pro users can upload logo + pick accent color for reports. Free-tier reports show "Powered by Overage" footer with link. |
+| **Day 9** ✅ | Onboarding: After signup, 2-step flow — (1) set your default hourly rate, (2) create your first project. Empty states with clear CTAs everywhere. |
+| **Day 10** ✅ | Deploy to Railway. Custom domain (overage.app). OG images. Final QA pass. Plausible/PostHog script added. Resend configured for transactional emails. |
 
 ### Exit Criteria
-- [ ] Core feature works end-to-end: create project → log additions → see running total → generate report
-- [ ] User can sign up (magic link), use the product, and upgrade to Pro via Stripe
-- [ ] Landing page explains the value in 5 seconds
-- [ ] Deployed and accessible via a real URL (e.g., scopecreep.app or usescopecreep.com)
+- [x] Core feature works end-to-end: create project → log additions → see running total → generate report
+- [x] User can sign up (email+password via Better Auth), use the product, and upgrade to Pro via DodoPayments
+- [x] Landing page explains the value in 5 seconds
+- [ ] Deployed and accessible via a real URL (overage.app) — code ready, manual deploy to Railway remaining
 
 ---
 
