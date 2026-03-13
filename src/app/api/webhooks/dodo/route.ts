@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
 
   const userId = data?.metadata?.user_id as string | undefined;
   if (!userId) {
-    return NextResponse.json({ error: "Missing user_id" }, { status: 400 });
+    // Test pings from Dodo dashboard don't include metadata — acknowledge them
+    return NextResponse.json({ received: true });
   }
 
   switch (type) {
