@@ -23,6 +23,12 @@ export default async function LandingPage() {
           </span>
           <div className="flex items-center gap-6">
             <Link
+              href="#pricing"
+              className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+            >
+              Pricing
+            </Link>
+            <Link
               href="/login"
               className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
             >
@@ -92,20 +98,25 @@ export default async function LandingPage() {
       {/* Trust strip */}
       <section className="border-y border-gray-200/60 bg-muted/50 animate-[fadeIn_0.6s_ease-out_0.4s_both]">
         <div className="mx-auto max-w-6xl px-6 py-10">
-          <p className="text-center text-xs font-medium uppercase tracking-widest text-gray-400">
-            Built for freelancers who use
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {["Figma", "VS Code", "Notion", "Slack", "Linear", "GitHub"].map(
-              (tool) => (
-                <span
-                  key={tool}
-                  className="text-sm font-semibold tracking-wide text-gray-300 transition-colors hover:text-gray-500"
-                >
-                  {tool}
-                </span>
-              )
-            )}
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-gray-500">
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Free tier forever
+            </span>
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              No credit card required
+            </span>
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Set up in 30 seconds
+            </span>
           </div>
         </div>
       </section>
@@ -186,6 +197,15 @@ export default async function LandingPage() {
             </div>
           </div>
         </div>
+
+        <div className="mt-14 text-center">
+          <Link
+            href="/login"
+            className="rounded-xl bg-foreground px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-gray-900/10 transition-all duration-200 hover:bg-zinc-800 hover:shadow-xl hover:shadow-gray-900/15 hover:-translate-y-0.5 active:translate-y-0"
+          >
+            Start tracking scope &mdash; free
+          </Link>
+        </div>
       </section>
 
       {/* Before / After */}
@@ -258,6 +278,15 @@ export default async function LandingPage() {
             a fact: &ldquo;The client has added $3,200 of work since the
             contract was signed.&rdquo;
           </p>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/login"
+              className="inline-block rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-foreground shadow-lg shadow-black/20 transition-all duration-200 hover:bg-gray-100 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Don&apos;t lose another $3,200
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -281,11 +310,19 @@ export default async function LandingPage() {
               one.
             </p>
           </div>
+          <div className="mt-10">
+            <Link
+              href="/login"
+              className="rounded-xl bg-foreground px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-gray-900/10 transition-all duration-200 hover:bg-zinc-800 hover:shadow-xl hover:shadow-gray-900/15 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Start being professional &mdash; free
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Pricing */}
-      <section className="border-t border-gray-200/60 bg-muted/30">
+      <section id="pricing" className="border-t border-gray-200/60 bg-muted/30">
         <div className="mx-auto max-w-6xl px-6 py-28">
           <p className="text-center text-sm font-medium uppercase tracking-widest text-accent">
             Simple pricing
@@ -296,6 +333,12 @@ export default async function LandingPage() {
           <p className="mt-3 text-center text-sm text-gray-500">
             The average user tracks $1,800/month in scope additions. Overage costs $8.
           </p>
+
+          <div className="mx-auto mt-8 flex items-center justify-center gap-3 rounded-xl border border-amber-200/60 bg-amber-50/50 px-6 py-3 max-w-md">
+            <span className="text-sm text-amber-800">
+              That&apos;s a <span className="font-bold">225x return</span> on every dollar you spend.
+            </span>
+          </div>
 
           <div className="mx-auto mt-14 grid max-w-2xl gap-6 md:grid-cols-2">
             {/* Free */}
@@ -327,7 +370,7 @@ export default async function LandingPage() {
                 href="/login"
                 className="mt-8 block w-full rounded-xl border border-gray-200 py-2.5 text-center text-sm font-semibold text-foreground transition-all duration-200 hover:bg-gray-50 hover:shadow-sm"
               >
-                Get started
+                Start tracking &mdash; free forever
               </Link>
             </div>
 
@@ -418,7 +461,7 @@ export default async function LandingPage() {
               <Link href="/login" className="transition-colors hover:text-gray-900">
                 Log in
               </Link>
-              <Link href="/login" className="transition-colors hover:text-gray-900">
+              <Link href="#pricing" className="transition-colors hover:text-gray-900">
                 Pricing
               </Link>
             </div>
